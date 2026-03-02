@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparador de Transporte Sustentável</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body>
+  <h1><b>Comparador de Transporte<br>Sustentável</b></h1>
+  <p>Descubra o meio de transporte mais sustentável e econômico!</p>
+
+  <div class="form-container">
+    <form id="formPrincipal" onsubmit="return false;">
+      <b><ins><label for="distancia">Distância (km):</label></ins></b>
+      <input type="number" id="distancia" name="distancia" placeholder="Ex: 10" min="0" required>
+
+      <b><ins><label for="transporte">Selecione o transporte:</label></ins></b>
+      <select id="transporte" name="transporte" required>
+        <option value="">Escolha uma opção</option>
+        <option value="carro.html">Carro</option>
+        <option value="onibus.html">Ônibus</option>
+        <option value="bicicleta.html">Bicicleta</option>
+        <option value="aviao.html">Avião</option>
+        <option value="moto.html">Moto</option>
+      </select>
+
+      
+      <button type="button" id="btnCalcular">Calcular</button>
+    </form>
+  </div>
+
+  <div class="rodapé-fixo">
+    <footer> 
+      <b>Feito por:</b> Lucas Gabriel Dias de Oliveira | <b> © 2025</b> 
+    </footer>
+  </div>
+   
+  
+
+     
+
+  <script>
+    const inputKm = document.getElementById('distancia');
+    const selectTransporte = document.getElementById('transporte');
+    const btn = document.getElementById('btnCalcular');
+
+   
+    inputKm.addEventListener('input', () => {
+      localStorage.setItem('km', inputKm.value);
+    });
+
+    btn.addEventListener('click', () => {
+      const km = inputKm.value;
+      const destino = selectTransporte.value;
+
+      if (!km || Number(km) <= 0) {
+        alert('Digite uma distância válida (maior que 0).');
+        return;
+      }
+      if (!destino) {
+        alert('Selecione um transporte.');
+        return;
+      }
+      localStorage.setItem('km', km); 
+      window.location.href = destino;
+    });
+  </script>
+</body>
+</html>

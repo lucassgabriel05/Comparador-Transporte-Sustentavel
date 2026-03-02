@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avião</title>
+  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../CSS/menu.css">
+  <link rel="stylesheet" href="../CSS/caixas.css">
+</head>
+<body>
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html" data-hover="Home">Home</a></li>
+      <li><a href="carro.html" data-hover="Carro">Carro</a></li>
+      <li><a href="moto.html" data-hover="Moto">Moto</a></li>
+      <li><a href="bicicleta.html" data-hover="Bicicleta">Bicicleta</a></li>
+      <li><a href="onibus.html" data-hover="Ônibus">Ônibus</a></li>
+    </ul>
+  </nav>
+
+  <div class="caixa1"></div>
+
+  <div id="caixaEnergia"><p>Consumo de Energia do Avião(kw)</p></div>
+  <div id="imagem_aviao"><img src="../imagens/aviao.jpg" alt="Avião"></div>
+  <div id="caixaCO2"><p>Consumo de CO2(kg)</p></div>
+  <div id="caixaCusto">
+    <b><u><p>Custo por Km:</p></u></b>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    const custos = {
+      aviao: 42,
+      moto: 0.133,
+      carro: 0.415,
+      onibus: 2.1,
+      bike: 0.00
+    };
+
+    function calcular(kmRaw) {
+      const km = Number(kmRaw);
+      const el = document.getElementById('resultado');
+
+      if (isNaN(km) || km <= 0) {
+        el.innerHTML = "Digite uma distância válida.";
+        return;
+      }
+
+      const r = `
+        <br><p> Avião: R$ ${(km * custos.aviao).toFixed(2)}</p></br>
+      `;
+      el.innerHTML = r;
+    }
+
+
+    const kmInicial = localStorage.getItem('km');
+    if (kmInicial) calcular(kmInicial);
+
+    
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'km') {
+        calcular(event.newValue);
+      }
+    });
+    </script>
+ <script>
+
+const energiaPorKm = 45.5; 
+const co2PorKm = 11.8;       
+function atualizarEnergiaECo2(km) {
+    km = Number(km);
+
+    if (isNaN(km) || km <= 0) {
+        document.getElementById("caixaEnergia").innerHTML = "Consumo de Energia: —";
+        document.getElementById("caixaCO2").innerHTML = "Consumo de CO₂: —";
+        return;
+    }
+
+    const energiaTotal = km * energiaPorKm;
+    const co2Total = km * co2PorKm;
+
+    document.getElementById("caixaEnergia").innerHTML = `
+        <u><p><b>Consumo de Energia:</b></p></u>
+        <br>${energiaTotal.toFixed(2)} (base: ${energiaPorKm}/km)</br>
+    `;
+
+    document.getElementById("caixaCO2").innerHTML = `
+        <u><p><b>Consumo de CO₂:</b></p></u>
+        <br>${co2Total.toFixed(2)} (base: ${co2PorKm}/km)</br>
+    `;
+}
+
+
+window.addEventListener("storage", (event) => {
+    if (event.key === "km") {
+        atualizarEnergiaECo2(event.newValue);
+    }
+});
+
+
+const kmInicial2 = localStorage.getItem("km");
+if (kmInicial2) atualizarEnergiaECo2(kmInicial2);
+</script>
+</body>
+</html>
