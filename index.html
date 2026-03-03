@@ -35,36 +35,43 @@
       <b>Feito por:</b> Lucas Gabriel Dias de Oliveira | <b> © 2025</b> 
     </footer>
   </div>
-   
-  
-
-     
-
-  <script>
+   <script>
     const inputKm = document.getElementById('distancia');
     const selectTransporte = document.getElementById('transporte');
     const btn = document.getElementById('btnCalcular');
 
-   
+    
+    if (localStorage.getItem('km')) {
+        inputKm.value = localStorage.getItem('km');
+    }
+
     inputKm.addEventListener('input', () => {
-      localStorage.setItem('km', inputKm.value);
+        localStorage.setItem('km', inputKm.value);
     });
 
     btn.addEventListener('click', () => {
-      const km = inputKm.value;
-      const destino = selectTransporte.value;
+        const km = inputKm.value;
+        const destino = selectTransporte.value;
 
-      if (!km || Number(km) <= 0) {
-        alert('Digite uma distância válida (maior que 0).');
-        return;
-      }
-      if (!destino) {
-        alert('Selecione um transporte.');
-        return;
-      }
-      localStorage.setItem('km', km); 
-      window.location.href = destino;
+        if (!km || Number(km) <= 0) {
+            alert('Digite uma distância válida (maior que 0).');
+            return;
+        }
+        
+        if (!destino || destino === "") {
+            alert('Selecione um transporte.');
+            return;
+        }
+
+        localStorage.setItem('km', km); 
+
+        window.location.href = destino;
     });
-  </script>
+</script>
+  
+
+     
+
+
 </body>
 </html>
